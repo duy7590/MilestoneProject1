@@ -66,7 +66,7 @@ def choose_first():
 
 ## returns a boolean indicating whether a space on the board is freely available
 def space_check(board, position):
-    return board[position] == ' '
+    return board[position] in  ['1','2','3','4','5','6','7','8','9']
 
 ## checks if the board is full and returns a boolean value. True if full, False otherwise
 
@@ -81,7 +81,7 @@ def full_board_check(board):
 
 def player_choice(board):
     position = 0
-    while position not in [1, 2, 3, 4, 5, 6, 7, 8, 9] or not space_check(board, position):
+    while position not in [1,2,3,4,5,6,7,8,9]:
         position = int(input('Choose your next position: (1-9) '))
 
     return position
@@ -99,12 +99,10 @@ print('Welcome to Tic Tac Toe!')
 
 
 while True  :
-    clear_screen()
-    board = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+    
+    board = ['#','1', '2', '3', '4','5', '6', '7', '8', '9']
     (player1,player2) = player_input()
     turn = choose_first()
-    print(turn)
-
     play_game = input('Are you ready to play? Enter Yes or No.')
 
     if play_game.lower()[0] == 'y':
@@ -112,10 +110,7 @@ while True  :
     else:
         game_on = False
 
-
-
-
-    while game_on:
+    while game_on == True:
         if turn == 'Player 1 go first':
 
             display_board(board)
@@ -125,17 +120,19 @@ while True  :
             if win_check(board, player1):
                 display_board(board)
                 print('Congratulations! You have won the game!')
+                clear_screen()
                 game_on = False
             else:
                 if full_board_check(board):
                     display_board(board)
                     print('The game is a draw!')
+                    clear_screen()
                     break
                 else:
                     turn = 'Player 2 go first'
 
         else:
-            #
+            
             display_board(board)
             position = player_choice(board)
             place_marker(board, player2, position)
@@ -143,11 +140,13 @@ while True  :
             if win_check(board, player2):
                 display_board(board)
                 print('Player 2 has won!')
+                clear_screen()
                 game_on = False
             else:
                 if full_board_check(board):
                     display_board(board)
                     print('The game is a draw!')
+                    clear_screen()
                     break
                 else:
                     turn = 'Player 1 go first'
